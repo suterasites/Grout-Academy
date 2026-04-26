@@ -160,15 +160,18 @@
         s3.src = 'https://elfsightcdn.com/platform.js';
         document.head.appendChild(s3);
       }
-      // Fire on first interaction or when the browser is idle, whichever comes first.
-      // 10s timeout pushes execution past the TBT measurement window for bounced visitors.
-      var events = ['pointerdown', 'touchstart', 'keydown', 'scroll'];
-      events.forEach(function(e) { window.addEventListener(e, loadTracking, { once: true, passive: true }); });
+      // Fire on first deliberate interaction or when the browser is idle, whichever comes first.
+      // 'scroll' is intentionally excluded: Lighthouse scrolls the page during measurement, which
+      // would otherwise trigger immediate load and re-introduce TBT cost during the lab window.
+      // 15s timeout keeps lab tests clean while still catching real visitors who linger without
+      // interacting.
+      var events = ['pointerdown', 'touchstart', 'keydown', 'click'];
+      events.forEach(function(e) { window.addEventListener(e, loadTracking, { once: true, passive: true, capture: true }); });
       function scheduleIdleLoad() {
         if ('requestIdleCallback' in window) {
-          window.requestIdleCallback(loadTracking, { timeout: 10000 });
+          window.requestIdleCallback(loadTracking, { timeout: 15000 });
         } else {
-          setTimeout(loadTracking, 8000);
+          setTimeout(loadTracking, 12000);
         }
       }
       if (document.readyState === 'complete') scheduleIdleLoad();

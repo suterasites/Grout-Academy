@@ -75,9 +75,9 @@
 <body class="bg-white text-ink">
 
   <!-- NAVBAR -->
-  <header class="sticky top-0 z-40 bg-white border-b border-ink-line">
+  <header id="site-header" class="sticky top-0 z-40 bg-white border-b border-ink-line" style="transition: transform 0.3s ease; will-change: transform;">
     <nav class="max-w-[1280px] mx-auto px-5 lg:px-8 flex items-center justify-between h-[72px]">
-      <a href="index.html" class="flex items-center gap-2"><img src="brand_assets/webflow/logo-grout-academy-black.png" alt="Grout Academy" class="h-9 w-auto"></a>
+      <a href="index.html" class="flex items-center gap-2"><img src="brand_assets/webflow/logo-grout-academy-black.png" alt="Grout Academy" class="h-14 w-auto"></a>
       <ul class="hidden lg:flex items-center gap-8">
         <li><a href="index.html" class="nav-link">Home</a></li>
         <li class="nav-dropdown relative">
@@ -274,6 +274,17 @@
     const mb = document.getElementById('mobile-menu-btn');
     const mm = document.getElementById('mobile-menu');
     if (mb && mm) { mb.addEventListener('click', () => mm.classList.toggle('open')); }
+    (function(){
+      const header = document.getElementById('site-header');
+      if (!header) return;
+      let lastY = window.scrollY;
+      window.addEventListener('scroll', () => {
+        const y = window.scrollY;
+        if (y > lastY && y > 80) header.style.transform = 'translateY(-100%)';
+        else header.style.transform = '';
+        lastY = y;
+      }, { passive: true });
+    })();
   </script>
 </body>
 </html>

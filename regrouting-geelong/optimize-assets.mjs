@@ -8,7 +8,7 @@ const assetsOut = path.resolve(__dirname, '../brand_assets/optimized');
 
 const tasks = [
   // Logo: square brand mark; nav h-10 = 40px @ 2x retina = 80px. 160px = 4x for safety.
-  { in: 'logo-grout-academy-black.png', out: 'logo-grout-academy-black-160.png', resize: { width: 160, height: 160, fit: 'inside' }, format: 'png' },
+  { in: 'logo-grout-academy-black.png', out: 'logo-grout-academy-black-80.png', resize: { width: 80, height: 80, fit: 'inside' }, format: 'png' },
 
   // Hero: shown at ~507x380 (mobile) up to 600x520 (desktop). Two WebP variants.
   { in: 'hero-shower-regrouting.jpeg', out: 'hero-shower-regrouting-640.webp', resize: { width: 640 }, format: 'webp', quality: 78 },

@@ -155,12 +155,24 @@
         s2.async = true;
         s2.src = 'https://www.googletagmanager.com/gtag/js?id=G-K7M7GWT3RJ';
         document.head.appendChild(s2);
+        var s3 = document.createElement('script');
+        s3.async = true;
+        s3.src = 'https://elfsightcdn.com/platform.js';
+        document.head.appendChild(s3);
       }
-      // Fire on first interaction or after 3s of idle, whichever comes first.
+      // Fire on first interaction or when the browser is idle, whichever comes first.
+      // 10s timeout pushes execution past the TBT measurement window for bounced visitors.
       var events = ['pointerdown', 'touchstart', 'keydown', 'scroll'];
       events.forEach(function(e) { window.addEventListener(e, loadTracking, { once: true, passive: true }); });
-      if (document.readyState === 'complete') setTimeout(loadTracking, 3000);
-      else window.addEventListener('load', function() { setTimeout(loadTracking, 3000); });
+      function scheduleIdleLoad() {
+        if ('requestIdleCallback' in window) {
+          window.requestIdleCallback(loadTracking, { timeout: 10000 });
+        } else {
+          setTimeout(loadTracking, 8000);
+        }
+      }
+      if (document.readyState === 'complete') scheduleIdleLoad();
+      else window.addEventListener('load', scheduleIdleLoad);
     })();
   </script>
 
@@ -382,8 +394,7 @@
           <h2 class="heading-uppercase font-display text-4xl sm:text-5xl mb-3">What Geelong customers say.</h2>
           <p class="text-ink-soft text-sm sm:text-base font-body max-w-2xl mx-auto">Real Google reviews from homeowners and businesses we've worked with.</p>
         </div>
-        <!-- Elfsight Google Reviews | Grout Academy -->
-        <script src="https://elfsightcdn.com/platform.js" async></script>
+        <!-- Elfsight Google Reviews | Grout Academy (deferred, below fold) -->
         <div class="elfsight-app-2e3c9052-f9c0-4d85-9697-e69ce499748b" data-elfsight-app-lazy></div>
       </div>
     </section>

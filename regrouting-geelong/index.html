@@ -147,30 +147,15 @@
   </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7M7GWT3RJ"></script>
 
-  <script src="https://cdn.tailwindcss.com"></script>
-  <script>
-    tailwind.config = {
-      theme: {
-        extend: {
-          colors: {
-            pomegranate: { DEFAULT: '#fb4d1c', light: '#fc8260', dark: '#c83d16', darker: '#641e0b', lightest: '#feede8', lighter: '#fedbd1' },
-            jaffa: { DEFAULT: '#f28c34', dark: '#c17029', light: '#f5ae70', lightest: '#fdf3ea', lighter: '#fce8d6' },
-            ink: { DEFAULT: '#191919', soft: '#4c4c4c', muted: '#7f7f7f', line: '#e5e5e5', bg: '#f2f2f2' }
-          },
-          fontFamily: {
-            display: ['"Yanone Kaffeesatz"', 'Impact', 'sans-serif'],
-            body: ['"Hind"', 'system-ui', 'sans-serif']
-          }
-        }
-      }
-    };
-  </script>
+  <link rel="stylesheet" href="styles.css">
 
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Yanone+Kaffeesatz:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Yanone+Kaffeesatz:wght@400;500;600;700&display=swap" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript><link href="https://fonts.googleapis.com/css2?family=Hind:wght@400;500;600;700&family=Yanone+Kaffeesatz:wght@400;500;600;700&display=swap" rel="stylesheet"></noscript>
 
-  <link rel="preload" as="image" href="../brand_assets/webflow/hero-shower-regrouting.jpeg" fetchpriority="high">
+  <link rel="preload" as="image" href="../brand_assets/optimized/hero-shower-regrouting-640.webp" fetchpriority="high" media="(max-width: 639px)" type="image/webp">
+  <link rel="preload" as="image" href="../brand_assets/optimized/hero-shower-regrouting-1200.webp" fetchpriority="high" media="(min-width: 640px)" type="image/webp">
 
   <style>
     body { font-family: 'Hind', system-ui, sans-serif; color: #191919; background: #fff; line-height: 1.65; }
@@ -233,7 +218,7 @@
   <header id="site-header" class="sticky top-0 z-50 bg-ink/95 backdrop-blur border-b border-white/5" style="transition: transform 0.3s ease;">
     <div class="max-w-6xl mx-auto px-5 sm:px-8 h-16 sm:h-20 flex items-center justify-between">
       <a href="#top" class="flex items-center gap-3" aria-label="Grout Academy">
-        <img src="../brand_assets/webflow/logo-grout-academy-black.png" alt="Grout Academy logo" class="h-9 sm:h-10 w-auto brightness-0 invert" decoding="async">
+        <img src="../brand_assets/optimized/logo-grout-academy-black-160.png" alt="Grout Academy logo" width="40" height="40" class="h-9 sm:h-10 w-auto brightness-0 invert" decoding="async">
         <span class="hidden sm:block text-white font-display text-2xl tracking-tight">Grout Academy</span>
       </a>
       <div class="flex items-center gap-2 sm:gap-4">
@@ -278,10 +263,15 @@
 
           <div class="lg:col-span-5">
             <div class="relative rounded-2xl overflow-hidden shadow-floating border border-white/10 img-overlay">
-              <img src="../brand_assets/webflow/hero-shower-regrouting.jpeg"
-                   alt="Restored tiled shower in a Geelong home with fresh grout and silicone"
-                   class="w-full h-[380px] sm:h-[460px] lg:h-[520px] object-cover"
-                   loading="eager" fetchpriority="high" decoding="async">
+              <picture>
+                <source srcset="../brand_assets/optimized/hero-shower-regrouting-640.webp" media="(max-width: 639px)" type="image/webp">
+                <source srcset="../brand_assets/optimized/hero-shower-regrouting-1200.webp" type="image/webp">
+                <img src="../brand_assets/optimized/hero-shower-regrouting-1200.webp"
+                     alt="Restored tiled shower in a Geelong home with fresh grout and silicone"
+                     width="1200" height="900"
+                     class="w-full h-[380px] sm:h-[460px] lg:h-[520px] object-cover"
+                     loading="eager" fetchpriority="high" decoding="async">
+              </picture>
               <div class="absolute left-5 right-5 bottom-5 z-10 flex items-center justify-between gap-3">
                 <div class="text-white">
                   <p class="text-xs uppercase tracking-widest text-pomegranate-light font-semibold">Recent job</p>
@@ -632,7 +622,7 @@
     <div class="max-w-6xl mx-auto px-5 sm:px-8">
       <div class="flex flex-col sm:flex-row items-center justify-between gap-4 text-sm">
         <div class="flex items-center gap-3">
-          <img src="../brand_assets/webflow/logo-grout-academy-black.png" alt="Grout Academy" class="h-9 w-auto opacity-90 brightness-0 invert" loading="lazy" decoding="async">
+          <img src="../brand_assets/optimized/logo-grout-academy-black-160.png" alt="Grout Academy" width="36" height="36" class="h-9 w-auto opacity-90 brightness-0 invert" loading="lazy" decoding="async">
           <span class="font-display text-2xl text-white">Grout Academy</span>
         </div>
         <div class="flex items-center gap-3">

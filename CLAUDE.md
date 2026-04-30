@@ -30,7 +30,10 @@ Geelong, Melbourne, Ballarat, Colac, Apollo Bay, Teesdale, Rokewood, Lara, Bella
 - Google Business Profile: Active (service areas as above)
 
 ### Tracking
-- Google Ads: AW-17975931257 (conversion label: `tdOOCJfahP8bEPniy_tC`, phone conversion number: 0418 958 131)
+- Google Ads: AW-17960926932 (active account, switched 2026-05-01 from dead AW-17975931257)
+  - Form Lead conversion label: `Zp4fCLj5mKUcENT9t_RC` (fires on /thank-you page load post Formspree redirect)
+  - Phone Call Lead conversion label: `6lGnCI2lzKUcENT9t_RC` (fires on tel: link click on regrouting-geelong LP)
+  - Enhanced Conversions for Leads enabled on both, data source = "API or upload"
 - GA4: G-K7M7GWT3RJ
 - Google Site Verification: `ngd569cODajM6XLialsZIDq27v2jPc6OUpf4ffUS788`
 

@@ -133,14 +133,13 @@
   }
   </script>
 
-  <!-- Google tag (gtag.js) - loaded synchronously so GCLID is captured into _gcl_aw cookie and phone number swap fires before render -->
-  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17975931257"></script>
+  <!-- Google tag (gtag.js) - loaded synchronously so GCLID is captured into _gcl_aw cookie before any form/call interaction. -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17960926932"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
     gtag('js', new Date());
-    gtag('config', 'AW-17975931257');
-    gtag('config', 'AW-17975931257/tdOOCJfahP8bEPniy_tC', { 'phone_conversion_number': '0418 958 131' });
+    gtag('config', 'AW-17960926932');
     gtag('config', 'G-K7M7GWT3RJ');
   </script>
   <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7M7GWT3RJ"></script>
@@ -693,11 +692,15 @@
       });
     })();
 
-    // Phone-call conversion tracking
+    // Phone Call Lead conversion: fires when a tel: link is clicked.
     document.querySelectorAll('[data-conversion="call"]').forEach(function(el) {
       el.addEventListener('click', function() {
         if (typeof gtag === 'function') {
-          gtag('event', 'conversion', { 'send_to': 'AW-17975931257/tdOOCJfahP8bEPniy_tC' });
+          gtag('event', 'conversion', {
+            'send_to': 'AW-17960926932/6lGnCI2lzKUcENT9t_RC',
+            'value': 800.0,
+            'currency': 'AUD'
+          });
         }
       });
     });

@@ -133,41 +133,30 @@
   }
   </script>
 
-  <!-- Google tag (gtag.js) - deferred until user interaction or after page is idle -->
+  <!-- Google tag (gtag.js) - loaded synchronously so GCLID is captured into _gcl_aw cookie and phone number swap fires before render -->
+  <script async src="https://www.googletagmanager.com/gtag/js?id=AW-17975931257"></script>
   <script>
     window.dataLayer = window.dataLayer || [];
     function gtag(){dataLayer.push(arguments);}
+    gtag('js', new Date());
+    gtag('config', 'AW-17975931257');
+    gtag('config', 'AW-17975931257/tdOOCJfahP8bEPniy_tC', { 'phone_conversion_number': '0418 958 131' });
+    gtag('config', 'G-K7M7GWT3RJ');
+  </script>
+  <script async src="https://www.googletagmanager.com/gtag/js?id=G-K7M7GWT3RJ"></script>
+  <script>
+    // Defer Elfsight reviews widget until first user interaction (kept lazy; not conversion-critical).
     (function() {
       var loaded = false;
-      function loadTracking() {
+      function loadElfsight() {
         if (loaded) return; loaded = true;
-        var s1 = document.createElement('script');
-        s1.async = true;
-        s1.src = 'https://www.googletagmanager.com/gtag/js?id=AW-17975931257';
-        s1.onload = function() {
-          gtag('js', new Date());
-          gtag('config', 'AW-17975931257');
-          gtag('config', 'AW-17975931257/tdOOCJfahP8bEPniy_tC', { 'phone_conversion_number': '0418 958 131' });
-          gtag('config', 'G-K7M7GWT3RJ');
-        };
-        document.head.appendChild(s1);
-        var s2 = document.createElement('script');
-        s2.async = true;
-        s2.src = 'https://www.googletagmanager.com/gtag/js?id=G-K7M7GWT3RJ';
-        document.head.appendChild(s2);
-        var s3 = document.createElement('script');
-        s3.async = true;
-        s3.src = 'https://elfsightcdn.com/platform.js';
-        document.head.appendChild(s3);
+        var s = document.createElement('script');
+        s.async = true;
+        s.src = 'https://elfsightcdn.com/platform.js';
+        document.head.appendChild(s);
       }
-      // Fire on first real human interaction. No timer fallback: requestIdleCallback fires the
-      // moment the browser is idle (which on a fast lab machine is immediately after load),
-      // re-introducing TBT cost. 'scroll' is excluded because Lighthouse scrolls during
-      // measurement to capture the filmstrip. mousemove + touchstart + pointerdown + keydown
-      // + click cover every realistic human entry signal without triggering during a Lighthouse
-      // mobile lab test (no synthetic mouse movement on mobile emulation).
       var events = ['pointerdown', 'touchstart', 'keydown', 'click', 'mousemove'];
-      events.forEach(function(e) { window.addEventListener(e, loadTracking, { once: true, passive: true, capture: true }); });
+      events.forEach(function(e) { window.addEventListener(e, loadElfsight, { once: true, passive: true, capture: true }); });
     })();
   </script>
 
@@ -343,11 +332,14 @@
           <h2 class="heading-uppercase font-display text-4xl sm:text-5xl mb-3">Get your free quote within 24 hours.</h2>
           <p class="text-ink-soft mt-2 font-body">Tell us about your shower. We will call back with a fixed price.</p>
         </div>
-        <form action="https://formspree.io/f/mojybkzj" method="POST" class="quote-form-card">
+        <form action="https://formspree.io/f/mojybkzj" method="POST" class="quote-form-card" data-track-gclid>
           <input type="hidden" name="_next" value="https://www.groutacademy.com.au/thank-you">
           <input type="hidden" name="_subject" value="New Shower Regrouting Geelong enquiry">
           <input type="hidden" name="_source" value="regrouting-geelong-lp">
           <input type="hidden" name="service" value="Shower regrouting">
+          <input type="hidden" name="gclid" value="">
+          <input type="hidden" name="landing_url" value="">
+          <input type="hidden" name="referrer" value="">
           <div class="space-y-4">
             <div class="grid sm:grid-cols-2 gap-4">
               <div>
@@ -709,6 +701,41 @@
         }
       });
     });
+
+    // GCLID capture for offline conversion attribution.
+    // Priority: ?gclid= URL param (current click) -> sessionStorage (stored on landing) -> _gcl_aw cookie (set by gtag.js).
+    (function() {
+      function getParam(name) {
+        var m = window.location.search.match(new RegExp('[?&]' + name + '=([^&]+)'));
+        return m ? decodeURIComponent(m[1]) : '';
+      }
+      function getCookieGclid() {
+        var m = document.cookie.match(/(?:^|;\s*)_gcl_aw=([^;]+)/);
+        if (!m) return '';
+        var parts = decodeURIComponent(m[1]).split('.');
+        return parts.length >= 3 ? parts.slice(2).join('.') : '';
+      }
+      var gclid = getParam('gclid');
+      if (gclid) {
+        try { sessionStorage.setItem('ga_gclid', gclid); } catch(e) {}
+      } else {
+        try { gclid = sessionStorage.getItem('ga_gclid') || ''; } catch(e) {}
+        if (!gclid) gclid = getCookieGclid();
+      }
+      var landingUrl = window.location.href;
+      var referrer = document.referrer || '';
+      document.querySelectorAll('form[data-track-gclid]').forEach(function(form) {
+        var g = form.querySelector('input[name="gclid"]');
+        var l = form.querySelector('input[name="landing_url"]');
+        var r = form.querySelector('input[name="referrer"]');
+        if (g) g.value = gclid;
+        if (l) l.value = landingUrl;
+        if (r) r.value = referrer;
+        form.addEventListener('submit', function() {
+          if (g) g.value = gclid || getCookieGclid();
+        });
+      });
+    })();
   </script>
 </body>
 </html>

@@ -235,9 +235,13 @@
           <h2 class="heading-uppercase text-4xl md:text-6xl font-display mb-4">Get in Touch</h2>
           <p class="text-ink-soft text-lg mb-8">We are here to answer your questions and schedule your work.</p>
 
-          <form action="https://formspree.io/f/mojybkzj" method="POST" class="bg-white rounded-lg p-6 lg:p-8 border border-ink-line space-y-4">
+          <form action="https://formspree.io/f/mojybkzj" method="POST" class="bg-white rounded-lg p-6 lg:p-8 border border-ink-line space-y-4" data-track-gclid>
             <input type="hidden" name="_next" value="https://www.groutacademy.com.au/thank-you">
             <input type="hidden" name="_subject" value="New enquiry from groutacademy.com.au">
+            <input type="hidden" name="_source" value="contact-page">
+            <input type="hidden" name="gclid" value="">
+            <input type="hidden" name="landing_url" value="">
+            <input type="hidden" name="referrer" value="">
             <div class="grid md:grid-cols-2 gap-4">
               <div>
                 <label for="name" class="block text-sm font-medium mb-1.5">Full Name</label>
@@ -417,6 +421,40 @@
         else header.style.transform = '';
         lastY = y;
       }, { passive: true });
+    })();
+
+    // GCLID capture for offline conversion attribution.
+    (function() {
+      function getParam(name) {
+        var m = window.location.search.match(new RegExp('[?&]' + name + '=([^&]+)'));
+        return m ? decodeURIComponent(m[1]) : '';
+      }
+      function getCookieGclid() {
+        var m = document.cookie.match(/(?:^|;\s*)_gcl_aw=([^;]+)/);
+        if (!m) return '';
+        var parts = decodeURIComponent(m[1]).split('.');
+        return parts.length >= 3 ? parts.slice(2).join('.') : '';
+      }
+      var gclid = getParam('gclid');
+      if (gclid) {
+        try { sessionStorage.setItem('ga_gclid', gclid); } catch(e) {}
+      } else {
+        try { gclid = sessionStorage.getItem('ga_gclid') || ''; } catch(e) {}
+        if (!gclid) gclid = getCookieGclid();
+      }
+      var landingUrl = window.location.href;
+      var referrer = document.referrer || '';
+      document.querySelectorAll('form[data-track-gclid]').forEach(function(form) {
+        var g = form.querySelector('input[name="gclid"]');
+        var l = form.querySelector('input[name="landing_url"]');
+        var r = form.querySelector('input[name="referrer"]');
+        if (g) g.value = gclid;
+        if (l) l.value = landingUrl;
+        if (r) r.value = referrer;
+        form.addEventListener('submit', function() {
+          if (g) g.value = gclid || getCookieGclid();
+        });
+      });
     })();
   </script>
 </body>

@@ -5,9 +5,12 @@
 
 ## The business
 
-- **Business name:** Grout Academy and Tiling
+- **Legal entity:** Grout Academy Pty Ltd (incorporated 2026-05-17)
 - **Trading as:** Grout Academy
-- **ABN:** 61 564 238 604
+- **Previous trading name (sole-trader):** Grout Academy and Tiling (do not display)
+- **ABN:** 20 644 421 670
+- **ACN:** 644 421 670
+- **Previous ABN (do not use):** 61 564 238 604
 - **Slogan:** Simply Smarter
 - **Owner:** stays anonymous on all content (no name, no title, no photo of a person)
 - **Founded:** unverified - **VERIFY WITH AARON** before using a year or "since X" claim. Do not write "10+ years" or "since 2015" without confirmation.

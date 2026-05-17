@@ -4,12 +4,15 @@
 
 ## Business Context
 
-**Business Name:** Grout Academy and Tiling
+**Business Name (trading):** Grout Academy
+**Legal Entity:** Grout Academy Pty Ltd (incorporated 2026-05-17, prior trading name "Grout Academy and Tiling")
 **Slogan:** Simply Smarter
 **Owner:** Aaron Varley (stays anonymous - no name/title on site)
 **Phone:** 0418 958 131
 **Email:** groutacademy@gmail.com
-**ABN:** 61 564 238 604
+**ABN:** 20 644 421 670 (new, post-incorporation 2026-05-17)
+**ACN:** 644 421 670
+**Previous ABN (do not use):** 61 564 238 604 (sole-trader, superseded 2026-05-17)
 **Location:** Geelong & Ballarat VIC, expanding Australia-wide
 **Live URL:** www.groutacademy.com.au
 **Domain registrar:** Registry Australia (Aaron owns domain)

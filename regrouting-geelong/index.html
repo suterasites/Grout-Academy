@@ -88,7 +88,7 @@
           {
             "@type": "Question",
             "name": "How much does shower regrouting cost?",
-            "acceptedAnswer": { "@type": "Answer", "text": "Pricing depends on shower size, the condition of the existing grout, and whether silicone and waterproofing top-ups are needed. Most standard residential shower regrouts in Geelong fall in a predictable range. We provide a fixed quote after a quick site visit so there are no surprises." }
+            "acceptedAnswer": { "@type": "Answer", "text": "Pricing depends on shower size, the condition of the existing grout, and whether silicone and waterproofing top-ups are needed. Because your existing tiles stay in place, a regrout costs a small fraction of what retiling or a bathroom renovation would. We confirm a fixed price after a quick free site visit, before any work starts, so there are no surprises." }
           },
           {
             "@type": "Question",
@@ -156,6 +156,8 @@
       }
       var events = ['pointerdown', 'touchstart', 'keydown', 'click', 'mousemove'];
       events.forEach(function(e) { window.addEventListener(e, loadElfsight, { once: true, passive: true, capture: true }); });
+      // Fallback: load after 2.5s even without interaction so the reviews section is never left empty.
+      setTimeout(loadElfsight, 2500);
     })();
   </script>
 
@@ -329,7 +331,7 @@
         <div class="text-center mb-8">
           <span class="chip mb-4">Free Quote</span>
           <h2 class="heading-uppercase font-display text-4xl sm:text-5xl mb-3">Get your free quote within 24 hours.</h2>
-          <p class="text-ink-soft mt-2 font-body">Tell us about your shower. We will call back with a fixed price.</p>
+          <p class="text-ink-soft mt-2 font-body">Tell us about your shower. We will call you back within 24 hours to book your free site visit and lock in a fixed price.</p>
         </div>
         <form action="https://formspree.io/f/mojybkzj" method="POST" class="quote-form-card" data-track-gclid>
           <input type="hidden" name="_next" value="https://www.groutacademy.com.au/thank-you">
@@ -534,6 +536,11 @@
     <!-- BEFORE / AFTER STRIP -->
     <section class="py-12 sm:py-16 bg-ink-bg">
       <div class="max-w-6xl mx-auto px-5 sm:px-8">
+        <div class="text-center mb-8">
+          <span class="chip mb-4">Before & After</span>
+          <h2 class="heading-uppercase font-display text-4xl sm:text-5xl mb-3">The difference a proper regrout makes.</h2>
+          <p class="text-ink-soft text-sm sm:text-base font-body max-w-2xl mx-auto">Your tiles stay. We strip the failed grout, treat the mould underneath, and rebuild the waterproof seal.</p>
+        </div>
         <div class="grid lg:grid-cols-2 gap-6">
           <figure class="relative rounded-2xl overflow-hidden shadow-elevated">
             <img src="../brand_assets/webflow/before-grimy-shower.jpg" alt="Before: grimy shower with cracked grout and mould build-up" class="w-full aspect-[4/3] object-cover" loading="lazy" decoding="async">
@@ -543,6 +550,9 @@
             <img src="../brand_assets/webflow/after-modern-shower.jpg" alt="After: regrouted modern shower with clean lines and fresh silicone" class="w-full aspect-[4/3] object-cover" loading="lazy" decoding="async">
             <figcaption class="absolute top-4 left-4 bg-pomegranate text-white text-xs uppercase tracking-widest font-semibold px-3 py-1.5 rounded-full">After</figcaption>
           </figure>
+        </div>
+        <div class="text-center mt-10">
+          <a href="#quick-quote" class="btn btn-primary text-sm">Quote My Shower</a>
         </div>
       </div>
     </section>
@@ -567,7 +577,7 @@
               <span class="font-display text-2xl">How much does shower regrouting cost?</span>
               <span class="faq-icon text-pomegranate text-3xl leading-none font-bold">+</span>
             </summary>
-            <p class="pb-6 text-ink-soft font-body">Pricing depends on shower size, the condition of the existing grout, and whether silicone and waterproofing top-ups are needed. Most standard residential shower regrouts in Geelong fall in a predictable range. We provide a fixed quote after a quick site visit so there are no surprises.</p>
+            <p class="pb-6 text-ink-soft font-body">Pricing depends on shower size, the condition of the existing grout, and whether silicone and waterproofing top-ups are needed. Because your existing tiles stay in place, a regrout costs a small fraction of what retiling or a bathroom renovation would. We confirm a fixed price after a quick free site visit, before any work starts, so there are no surprises.</p>
           </details>
           <details>
             <summary class="flex items-center justify-between gap-6 py-6">

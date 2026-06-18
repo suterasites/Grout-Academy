@@ -24,6 +24,7 @@
 - Pool Coping Tile Restoration
 - Tile Repairs
 - Waterproofing and Resilicone
+- Disability Access Rails (grab rails, hand rails, shower rails, ambulant rails - aged care + NDIS positioning, added 2026-06-19 per Aaron's request)
 
 ### Service Areas (VIC)
 Geelong, Melbourne, Ballarat, Colac, Apollo Bay, Teesdale, Rokewood, Lara, Bellarine, Bannockburn, Lorne, Werribee
@@ -59,6 +60,7 @@ Reference screenshots of all 12 Webflow pages in `temporary screenshots/` (named
 | `/services/pool-coping-tile-restoration-geelong` | `services/pool-coping-tile-restoration-geelong.html` | Service detail |
 | `/services/tile-repairs-geelong` | `services/tile-repairs-geelong.html` | Service detail |
 | `/services/waterproofing-and-resilicone-geelong` | `services/waterproofing-and-resilicone-geelong.html` | Service detail |
+| `/services/disability-access-rails-geelong` | `services/disability-access-rails-geelong.html` | Service detail (grab/hand/shower/ambulant rails, aged care + NDIS) |
 | `/about-us` | `about-us.html` | About |
 | `/contact` | `contact.html` | Contact form (Formspree) |
 | `/service-areas` | `service-areas.html` | Service areas |

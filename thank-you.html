@@ -81,6 +81,23 @@
     .nav-dropdown-menu a { display: block; padding: 0.7rem 0.9rem; border-radius: 6px; font-size: 0.95rem; color: #191919; }
     .nav-dropdown-menu a:hover { background: #feede8; color: #c83d16; }
   </style>
+  <!-- Sutera lead events (GA4) -->
+  <script>/* SUTERA_LEAD_EVENTS */
+  (function(){
+    function ev(n, p){ if (typeof window.gtag === 'function') { window.gtag('event', n, Object.assign({transport_type:'beacon'}, p||{})); } }
+    document.addEventListener('click', function(e){
+      var a = e.target.closest ? e.target.closest('a[href^="tel:"]') : null;
+      if (a) ev('click_to_call', { link_url: a.getAttribute('href') });
+    }, true);
+    document.addEventListener('submit', function(e){
+      var f = e.target;
+      if (!f || f.tagName !== 'FORM' || f.hasAttribute('data-no-lead')) return;
+      var action = f.getAttribute('action') || '';
+      var isLead = /formspree/i.test(action) || f.querySelector('input[type="email"], input[type="tel"], textarea');
+      if (isLead) ev('generate_lead', { form_id: f.id || f.getAttribute('name') || 'contact' });
+    }, true);
+  })();
+  </script>
 </head>
 <body class="bg-white text-ink">
 

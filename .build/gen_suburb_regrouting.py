@@ -131,7 +131,10 @@ def transform(html, service, sub):
     head, body = html[:b], html[b:]
 
     # HEAD: self URLs to this page, then blanket display + primary areaServed -> suburb.
+    # see gen_warrnambool_services.py: canonicals are clean URLs since 2026-09-02,
+    # so the .html form alone no longer matches the canonical
     head = head.replace("-geelong.html", f"-{slug}.html")
+    head = head.replace('-geelong"', f'-{slug}"')
     head = head.replace("Geelong", name)
 
     # BODY: keep the footer identical to the rest of the site.

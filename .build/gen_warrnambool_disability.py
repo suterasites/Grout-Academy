@@ -67,7 +67,10 @@ def transform(html: str) -> str:
     head = head.replace('"name": "Bellarine Peninsula"', '"name": "Koroit"')
     head = head.replace('"name": "Surf Coast"', '"name": "South-West Victoria"')
     # HEAD: self-referential slugs, then any remaining display "Geelong".
+    # see gen_warrnambool_services.py: canonicals are clean URLs since 2026-09-02,
+    # so the .html form alone no longer matches the canonical
     head = head.replace("-geelong.html", "-warrnambool.html")
+    head = head.replace('-geelong"', '-warrnambool"')
     head = head.replace("Geelong", "Warrnambool")
 
     # Body split at footer; footer stays identical to the rest of the site.

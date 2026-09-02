@@ -75,7 +75,14 @@ def transform(html: str) -> str:
     head = head.replace('"name": "Bellarine Peninsula"', '"name": "Koroit"')
     head = head.replace('"name": "Surf Coast"', '"name": "South-West Victoria"')
     # 3. HEAD: self-referential URL slugs + remaining display "Geelong".
+    # Both URL forms, because the sitemap and every canonical moved to clean URLs on
+    # 2026-09-02 (Cloudflare 308s .html -> extensionless, so declaring .html handed
+    # Google a URL that bounces). Matching only the .html form here would leave a
+    # regenerated page declaring the GEELONG canonical - a brand new page announcing
+    # itself as a duplicate of the one it was cloned from. The trailing quote keeps
+    # this to URL ends, so prose mentioning Geelong is untouched.
     head = head.replace("-geelong.html", "-warrnambool.html")
+    head = head.replace('-geelong"', '-warrnambool"')
     head = head.replace("Geelong", "Warrnambool")
 
     # Split body at the footer; everything after stays identical to the rest of the site.

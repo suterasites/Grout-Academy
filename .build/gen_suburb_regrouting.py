@@ -57,7 +57,9 @@ CLIMATE_LINE = {
 SUBURBS = [
     {"slug": "ballarat", "name": "Ballarat", "group": "goldfields",
      "region": "Ballarat, Ballan and Bacchus Marsh",
-     "faq_towns": "Ballan, Bacchus Marsh, Bannockburn and Buninyong", "faq_region": "Ballarat region and central goldfields"},
+     "faq_towns": "Ballan, Bacchus Marsh, Bannockburn and Buninyong", "faq_region": "Ballarat region and central goldfields",
+     # hand-written Ballarat service pages (2026-09-14); their cross-sell cards point here
+     "extra_local": ["tile-and-pavement-regrouting", "tile-repairs"]},
     {"slug": "bacchus-marsh", "name": "Bacchus Marsh", "group": "goldfields",
      "region": "Bacchus Marsh, Ballan and Melton",
      "faq_towns": "Ballan, Melton, Darley and Maddingley", "faq_region": "Moorabool and western corridor"},
@@ -152,6 +154,16 @@ def transform(html, service, sub):
         f'{sibling}-geelong.html" class="block bg-white border',
         f'{sibling}-{slug}.html" class="block bg-white border',
     )
+    # A suburb that has since gained other hand-written service pages lists them in
+    # extra_local, so a re-run keeps those cross-sell cards local instead of reverting
+    # them to Geelong. The pages must exist, or the card would 404.
+    for other in sub.get("extra_local", []):
+        assert os.path.exists(os.path.join(SERVICES, f"{other}-{slug}.html")), \
+            f"{service}-{slug}: extra_local page {other}-{slug}.html missing"
+        pre = pre.replace(
+            f'{other}-geelong.html" class="block bg-white border',
+            f'{other}-{slug}.html" class="block bg-white border',
+        )
     # Surgical (NOT blanket): localise only the template's own "Geelong" spots. A blanket
     # swap would also clobber a legitimate neighbour reference (e.g. Lara / Bannockburn
     # genuinely list Geelong as a nearby town in their region phrase + local FAQ).

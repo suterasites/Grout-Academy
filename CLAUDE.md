@@ -85,8 +85,17 @@ Reference screenshots of all 12 Webflow pages in `temporary screenshots/` (named
 
 ## Output Defaults
 - Single HTML file per page, all styles inline, unless told otherwise.
-- Tailwind via CDN: `<script src="https://cdn.tailwindcss.com"></script>`
-- Google Fonts for typography (match Webflow's font stack from the shared CSS).
+- Tailwind is PRECOMPILED into `styles.css`, not loaded from the CDN. A new
+  utility class only works if it is covered by a `content` glob in
+  `tailwind.config.js` - add the file there before using it.
+- Fonts are SELF-HOSTED from `assets/fonts/` (Hind + Yanone Kaffeesatz, latin
+  woff2, fontsource naming), declared in an inline `@font-face` block in each
+  page's head. Do not add a `fonts.googleapis.com` link back: Chrome measured
+  751ms of blocked render for it on the homepage, because it is 1.5KB of CSS
+  behind a handshake to a new origin that then points at a second new origin.
+  Changing weights means running `python3 scripts/fetch-fonts.py` then
+  `scripts/selfhost-fonts.py` from the Sutera-Sites repo, never editing the
+  block by hand on one page.
 - Mobile-first responsive.
 
 ## Brand Assets

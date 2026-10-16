@@ -122,7 +122,7 @@
   </url>
   <url>
     <loc>https://www.groutacademy.com.au/service-areas</loc>
-    <lastmod>2026-05-20</lastmod>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>
@@ -345,6 +345,24 @@
   <url>
     <loc>https://www.groutacademy.com.au/services/tile-and-pavement-regrouting-ballarat</loc>
     <lastmod>2026-09-14</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.groutacademy.com.au/service-areas/regrouting-werribee</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://www.groutacademy.com.au/services/shower-regrouting-tarneit</loc>
+    <lastmod>2026-10-16</lastmod>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://www.groutacademy.com.au/services/shower-regrouting-point-cook</loc>
+    <lastmod>2026-10-16</lastmod>
     <changefreq>monthly</changefreq>
     <priority>0.7</priority>
   </url>

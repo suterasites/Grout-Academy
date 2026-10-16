@@ -13,6 +13,16 @@ cross-sell link, the recent-work heading, plus a per-suburb local paragraph and 
 are changed. Each suburb gets a genuine local angle so the pages are not thin
 name-swaps.
 
+Optional per-suburb keys (added 2026-10-16 for the Wyndham cluster):
+  services      build only these of SERVICE_SIBLING (default: both)
+  sibling_slug  where the sibling cross-sell card points when that sibling page is
+                not built for this suburb (must already exist, or it would 404)
+  local         a hand-written local paragraph, in place of the group template
+  faq_note      replaces the group climate line in the local FAQ answer
+  no_local_jobs True where the CRM records no finished job in the area yet: the
+                "Finished Jobs Across <Suburb>" heading would claim one, so the
+                recent-work block is retitled to say what the photos really are
+
 Run from anywhere:  python3 .build/gen_suburb_regrouting.py
 """
 import os
@@ -99,18 +109,65 @@ SUBURBS = [
     {"slug": "rokewood", "name": "Rokewood", "group": "goldfields",
      "region": "Rokewood, Bannockburn and Meredith",
      "faq_towns": "Bannockburn, Meredith, Cressy and Shelford", "faq_region": "Golden Plains region"},
+    # Wyndham (2026-10-16). Shower only: the strongest service, and a stage-lane move
+    # builds at most 3 pages (the third is service-areas/regrouting-werribee.html). The
+    # pool cross-sell card points at the Werribee pool page. Aaron's installer is based
+    # in Tarneit (CRM notes 2026-05-23, 2026-08-20); "based in the Wyndham area" is the
+    # wording the live /regrouting-werribee/ page already uses. No Wyndham job is on
+    # record yet, so neither page names one.
+    {"slug": "tarneit", "name": "Tarneit", "group": "growth",
+     "region": "Tarneit, Werribee and Truganina",
+     "faq_towns": "Werribee, Truganina, Hoppers Crossing and Manor Lakes", "faq_region": "Wyndham area",
+     "services": ["shower-regrouting"], "sibling_slug": "werribee", "no_local_jobs": True,
+     "local": ("Tarneit is one of the fastest-growing suburbs in Victoria, and most of its homes "
+               "went up in the last fifteen years. That is young for a house and old enough for "
+               "builder-grade grout to give out. The corners crack first, then the silicone at the "
+               "floor joint goes black, and water starts working in behind the tiles. Our installer "
+               "is based in the Wyndham area, so a Tarneit shower is local work, not a trip."),
+     "faq_note": ("Our installer is based in the Wyndham area, so this is local work on normal "
+                  "timeframes, with no call-out fee.")},
+    {"slug": "point-cook", "name": "Point Cook", "group": "growth",
+     "region": "Point Cook, Williams Landing and Werribee",
+     "faq_towns": "Williams Landing, Werribee, Hoppers Crossing and Tarneit", "faq_region": "Wyndham area",
+     "services": ["shower-regrouting"], "sibling_slug": "werribee", "no_local_jobs": True,
+     "local": ("Most of Point Cook was built from the late 1990s on, so the first estates now have "
+               "bathrooms with twenty years on the original grout. The newer streets have the "
+               "opposite problem: showers finished in a hurry with the cheapest product that met "
+               "spec. Either way the fix is the same. Strip the failed grout and silicone out, "
+               "rebuild with Mapei, and do it once."),
+     "faq_note": ("Our installer is based in the Wyndham area, so Point Cook is local work on "
+                  "normal timeframes, with no call-out fee.")},
 ]
+
+# Recent-work block wording where no finished job in the suburb is on record.
+WORK_HEADING_GENERIC = "Finished Jobs, Rebuilt in Mapei"
+WORK_BLURB = "A snapshot of recent regrouting and tiling work completed for local homeowners and businesses."
+WORK_BLURB_GENERIC = "A snapshot of recent regrouting and tiling work from across our service areas."
 
 
 def local_para_html(sub):
     tmpl = {"coastal": COASTAL, "goldfields": GOLDFIELDS, "growth": GROWTH}[sub["group"]]
-    return '<p class="text-ink-soft text-lg">' + tmpl.format(name=sub["name"]) + '</p>'
+    return '<p class="text-ink-soft text-lg">' + sub.get("local", tmpl.format(name=sub["name"])) + '</p>'
+
+
+def services_for(sub):
+    return sub.get("services", list(SERVICE_SIBLING))
+
+
+def sibling_target(service, sub):
+    """The suburb slug the sibling cross-sell card should point at."""
+    if SERVICE_SIBLING[service] in services_for(sub):
+        return sub["slug"]
+    other = sub["sibling_slug"]
+    assert os.path.exists(os.path.join(SERVICES, f"{SERVICE_SIBLING[service]}-{other}.html")), \
+        f"{service}-{sub['slug']}: sibling fallback {SERVICE_SIBLING[service]}-{other}.html missing"
+    return other
 
 
 def local_faq(sub):
     q = f"Do you service {sub['name']} and the surrounding area?"
     a = (f"Yes. We cover {sub['name']}, {sub['faq_towns']}, and the wider {sub['faq_region']}. "
-         f"{CLIMATE_LINE[sub['group']]} Contact us for a free quote anywhere in the area.")
+         f"{sub.get('faq_note', CLIMATE_LINE[sub['group']])} Contact us for a free quote anywhere in the area.")
     faq_json = ('{ "@type": "Question", "name": "' + q + '", "acceptedAnswer": { "@type": "Answer", '
                 '"text": "' + a + '" }},')
     faq_html = (
@@ -128,6 +185,7 @@ def transform(html, service, sub):
     name, slug = sub["name"], sub["slug"]
     region = sub["region"]
     sibling = SERVICE_SIBLING[service]
+    sibling_slug = sibling_target(service, sub)
 
     b = html.index("<body")
     head, body = html[:b], html[b:]
@@ -152,7 +210,7 @@ def transform(html, service, sub):
     # nav, footer and the other 4 cards keep their canonical -geelong.html targets.
     pre = pre.replace(
         f'{sibling}-geelong.html" class="block bg-white border',
-        f'{sibling}-{slug}.html" class="block bg-white border',
+        f'{sibling}-{sibling_slug}.html" class="block bg-white border',
     )
     # A suburb that has since gained other hand-written service pages lists them in
     # extra_local, so a re-run keeps those cross-sell cards local instead of reverting
@@ -169,6 +227,12 @@ def transform(html, service, sub):
     # genuinely list Geelong as a nearby town in their region phrase + local FAQ).
     pre = pre.replace("Regrouting Geelong", f"Regrouting {name}")   # H1 + breadcrumb
     pre = pre.replace("Services in Geelong", f"Services in {name}")  # cross-sell heading
+    if sub.get("no_local_jobs"):
+        # no finished job here is on record, so do not title the gallery as local work
+        assert "Finished Jobs Across Geelong" in pre and WORK_BLURB in pre, \
+            f"{service}-{slug}: recent-work block changed in the template"
+        pre = pre.replace("Finished Jobs Across Geelong", WORK_HEADING_GENERIC)
+        pre = pre.replace(WORK_BLURB, WORK_BLURB_GENERIC)
     pre = pre.replace("Across Geelong", f"Across {name}")            # recent-work heading
 
     html = head + pre + foot
@@ -193,6 +257,8 @@ def main():
         with open(src, encoding="utf-8") as fh:
             ref = fh.read()
         for sub in SUBURBS:
+            if service not in services_for(sub):
+                continue
             out = transform(ref, service, sub)
             # Guards: the template's own "Geelong" spots must be localised. (Legitimate
             # neighbour references to Geelong in the region phrase / local FAQ are allowed.)
@@ -204,8 +270,10 @@ def main():
             assert out.count("SUTERA_LEAD_EVENTS") == 1, f"{service}-{sub['slug']}: lead-events snippet altered"
             assert "AW-17960926932" in out and "G-K7M7GWT3RJ" in out, f"{service}-{sub['slug']}: tracking IDs dropped"
             # the sibling cross-sell link must resolve to the new suburb (page we also write)
-            assert f'{SERVICE_SIBLING[service]}-{sub["slug"]}.html" class="block bg-white border' in out, \
+            assert f'{SERVICE_SIBLING[service]}-{sibling_target(service, sub)}.html" class="block bg-white border' in out, \
                 f"{service}-{sub['slug']}: sibling cross-sell not localised"
+            if sub.get("no_local_jobs"):
+                assert f"Across {sub['name']}" not in out, f"{service}-{sub['slug']}: gallery claims local jobs"
             dst = os.path.join(SERVICES, f"{service}-{sub['slug']}.html")
             with open(dst, "w", encoding="utf-8") as fh:
                 fh.write(out)

@@ -72,7 +72,9 @@ SUBURBS = [
      "extra_local": ["tile-and-pavement-regrouting", "tile-repairs"]},
     {"slug": "bacchus-marsh", "name": "Bacchus Marsh", "group": "goldfields",
      "region": "Bacchus Marsh, Ballan and Melton",
-     "faq_towns": "Ballan, Melton, Darley and Maddingley", "faq_region": "Moorabool and western corridor"},
+     "faq_towns": "Ballan, Melton, Darley and Maddingley", "faq_region": "Moorabool and western corridor",
+     # .build/gen_service_depth.py pages (2026-11-13); their cross-sell cards point here
+     "extra_local": ["tile-and-pavement-regrouting", "tile-repairs"]},
     {"slug": "ballan", "name": "Ballan", "group": "goldfields",
      "region": "Ballan, Ballarat and Bacchus Marsh",
      "faq_towns": "Ballarat, Bacchus Marsh, Gordon and Myrniong", "faq_region": "Moorabool and Ballarat region"},
@@ -130,6 +132,8 @@ SUBURBS = [
      "region": "Point Cook, Williams Landing and Werribee",
      "faq_towns": "Williams Landing, Werribee, Hoppers Crossing and Tarneit", "faq_region": "Wyndham area",
      "services": ["shower-regrouting"], "sibling_slug": "werribee", "no_local_jobs": True,
+     # .build/gen_service_depth.py page (2026-11-13)
+     "extra_local": ["tile-and-pavement-regrouting"],
      "local": ("Most of Point Cook was built from the late 1990s on, so the first estates now have "
                "bathrooms with twenty years on the original grout. The newer streets have the "
                "opposite problem: showers finished in a hurry with the cheapest product that met "

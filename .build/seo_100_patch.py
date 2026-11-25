@@ -33,9 +33,9 @@ TITLES = {
 METAS = {
     "index.html": "Shower regrout and tile restoration specialists across Geelong, Melbourne and Ballarat. Regrouting, waterproofing and tiling with premium Mapei. Free quotes.",
     "services.html": "Shower regrouting, pool regrouting, tile and pavement regrouting, pool coping restoration, tile repairs and waterproofing across Geelong, Melbourne and Ballarat.",
-    "services/tile-and-pavement-regrouting-geelong.html": "Expert tile and pavement regrouting across Geelong, restoring stability, appearance and long-term protection. Rebuilt with premium Mapei. Free quotes.",
+    "services/tile-and-pavement-regrouting-geelong.html": "Tile regrouting and grout sealing across Geelong. Failed joints on floors, patios, paths and driveways rebuilt with Mapei. Fixed quote in writing, no call-out fee.",
     "services/pool-coping-tile-restoration-geelong.html": "Specialist regrouting and restoration of pool coping tiles across Geelong, extending the life of your pool area. Rebuilt with Mapei. Free quotes.",
-    "services/tile-repairs-geelong.html": "Expert tile repair services across Geelong, restoring cracked and damaged tiles without the cost of full replacement. Free quotes, workmanship guaranteed.",
+    "services/tile-repairs-geelong.html": "Tile and grout repairs across Geelong. Cracked or loose tiles replaced and failed grout rebuilt with Mapei, without pulling up the whole floor. Fixed written quote.",
     "services/disability-access-rails-geelong.html_META": "Grab rails, hand rails, shower rails and ambulant rails installed across Geelong. Safer bathrooms for older Australians, aged care and NDIS. Free quotes.",
     "service-areas/regrouting-warrnambool.html": "Regrouting in Warrnambool and the south-west coast. Shower and pool regrouting, tile repairs and waterproofing, rebuilt with Mapei. Fixed quote in writing.",
     "privacy.html_META": "How Grout Academy collects, uses, stores and protects the personal information you provide through our website and enquiries, under the Privacy Act 1988.",
